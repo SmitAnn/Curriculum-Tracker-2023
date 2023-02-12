@@ -1,0 +1,25 @@
+
+import './App.css';
+//import MainDash from './components/MainDash/MainDash';
+import Profile from './components/Profile/Profile';
+//import RightSide from './components/RightSide/RightSide';
+//import Sidebar from './components/Sidebar/Sidebar';
+
+function App() {
+  return (
+    // <div className="App">
+    //   <div className="AppGlass">
+    //     <Sidebar />
+    //     <MainDash />
+    //     <RightSide />
+
+
+    //   </div>
+    // </div>
+    <div>
+      <Profile />
+    </div>
+  );
+}
+
+export default App;
