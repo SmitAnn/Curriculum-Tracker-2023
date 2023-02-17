@@ -24,8 +24,12 @@ const RequirementSchema=mongoose.Schema(
           file : {
             type: String
            
-          }
+          },
+          isClosed: {
+            type: Boolean,
+            default: false
+        }
     }
 );
 var RequirementModel=mongoose.model('Requirements',RequirementSchema);
-module.exports={RequirementModel}
+module.exports=RequirementModel

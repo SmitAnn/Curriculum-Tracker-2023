@@ -7,6 +7,7 @@ app.use(cors({ origin: '*' }));
 const mongoose = require('mongoose');
 const requirement = require('./routes/requirementData');
 const user = require("./routes/userData");
+const curriculum = require('./routes/curriculumData');
 mongoose.set("strictQuery", false);
 
 
@@ -20,7 +21,7 @@ mongoose.connect
 
 app.use('/api/requirement', requirement);
 app.use("/user", user);
-
+app.use('/api/curriculum',curriculum);
 
 
 
