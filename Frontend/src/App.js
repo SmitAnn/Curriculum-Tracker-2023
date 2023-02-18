@@ -14,6 +14,7 @@ import Update_Curriculum from './components/curriculum/update/Update_Curriculum'
 import New_Updates from './components/newupdates/New_Updates';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
+import Curriculum_Dash from './components/curriculum/dashboard/Curriculum_Dash';
 //import RightSide from './components/RightSide/RightSide';
 //import Sidebar from './components/Sidebar/Sidebar';
 
@@ -31,7 +32,8 @@ function App() {
       <Route path='/curriculum/create' element={<Create_Curriculum/>} />
       <Route path='/curriculums/ReadAll' element={<Read_Curriculum/>} />
       <Route path='/curriculums/ReadOne' element={<View_Curriculum/>} />
-      <Route path='/curriculums/update' element={<Update_Requirement/>} />
+      <Route path='/curriculums/update' element={<Update_Curriculum/>} />
+      <Route path='/curriculums/dash' element={<Curriculum_Dash/>} />
       <Route path='/dashboard' element={<MainDash/>} />
       <Route path='/updates' element={<New_Updates/>} />
       <Route path='/' element={<Login/>} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import Review from '../Review/Review';
-import Search from '../search/Search';
-import Updates from '../Updates/Updates';
+import Search from '../search/Search'
+import Updates from '../newupdates/New_Updates';
 import './RightSide.css';
 
 const RightSide = () => {

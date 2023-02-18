@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom'
 import React, { useEffect, useState } from "react";
-
+import Sidebar from '../../Sidebar/Sidebar';
+import RightSide from '../../RightSide/RightSide';
 const Update_Curriculum = () => {
 
   const navigate = useNavigate();
@@ -70,7 +71,9 @@ const Update_Curriculum = () => {
 
 
   return (
-    <div>
+    <div className="App">
+    <div className="AppGlass">
+ <Sidebar/>
 
       <section className="Background">
 
@@ -89,8 +92,8 @@ const Update_Curriculum = () => {
                         <br />
                         <br />
                         <br />
-                        <div className="form-outline mb-2">
-                          <input type="text" name='comments' value={curriculum.comments} onChange={handleChange} className="form-control form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Comments" required />
+                        <div>
+                          <input type="text" rows="3"  name='comments' value={curriculum.comments} onChange={handleChange} className="form-control form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Comments" required />
                         </div>
                         <br />
                         <div className="form-group">
@@ -116,7 +119,9 @@ const Update_Curriculum = () => {
           </div>
         </div>
       </section>
-    </div>
+      <RightSide/>
+  </div>
+  </div>
   )
 }
 

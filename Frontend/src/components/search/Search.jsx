@@ -69,8 +69,9 @@ const Search = () => {
                                     <h3>{val.area}</h3>
                                     <h3>{val.category}</h3>
                                     <h3>{val.institution}</h3>
-                                    <p className="price">{val.category}</p>
-                                </div>
+                                   
+
+                  </div>
                             )
                         })
                 }

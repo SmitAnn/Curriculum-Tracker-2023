@@ -52,8 +52,8 @@ const New_Updates = () => {
                                     <span>{"Name : "+update.name}</span><br/>
                                     <span> {update.area+" , "}{update.category}</span><br/> 
                                     <span>{"Institute : "+update.institution}</span><br/>
-                                    <Link to='/requirements/ReadOne'>
-                                    <button  type="button" onClick={setData(update._id)}>View Details</button></Link>
+                                    {/* <Link to='/requirements/ReadOne'>
+                                    <button  type="button" onClick={setData(update._id)}>View Details</button></Link> */}
                                  
                                 </div>
                                

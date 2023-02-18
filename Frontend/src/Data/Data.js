@@ -41,7 +41,7 @@ export const SidebarData = [
     {
         icon: UilBell,
         heading: "Notification",
-        file:"/requirements/ReadAll"
+        file:"/curriculums/dash"
     },
     {
         icon: UilChart,
