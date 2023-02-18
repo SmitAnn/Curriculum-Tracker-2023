@@ -1,7 +1,7 @@
 
 import './App.css';
 import { Routes,Route ,BrowserRouter as Router} from 'react-router-dom';
-//import MainDash from './components/MainDash/MainDash';
+import MainDash from './components/MainDash/MainDash';
 import User_Profile from './components/Profile/Profile';
 import Create_Requirements from './components/requirements/create/Create_Requirements';
 import Read_Requirement from './components/requirements/read/Read_Requirement';
@@ -10,6 +10,10 @@ import View_Requirement from './components/requirements/view/View_Requirements';
 import Create_Curriculum from './components/curriculum/create/Create_Curriculum';
 import Read_Curriculum from './components/curriculum/read/Read_Curriculum';
 import View_Curriculum from './components/curriculum/view/View_Curriculum';
+import Update_Curriculum from './components/curriculum/update/Update_Curriculum';
+import New_Updates from './components/newupdates/New_Updates';
+import Login from './components/Login/Login';
+import Registration from './components/Registration/Registration';
 //import RightSide from './components/RightSide/RightSide';
 //import Sidebar from './components/Sidebar/Sidebar';
 
@@ -27,6 +31,17 @@ function App() {
       <Route path='/curriculum/create' element={<Create_Curriculum/>} />
       <Route path='/curriculums/ReadAll' element={<Read_Curriculum/>} />
       <Route path='/curriculums/ReadOne' element={<View_Curriculum/>} />
+      <Route path='/curriculums/update' element={<Update_Requirement/>} />
+      <Route path='/dashboard' element={<MainDash/>} />
+      <Route path='/updates' element={<New_Updates/>} />
+      <Route path='/' element={<Login/>} />
+      <Route path='/registration' element={<Registration/>} />
+     
+
+      
+      
+
+
       </Routes>
       </Router>
        </div>

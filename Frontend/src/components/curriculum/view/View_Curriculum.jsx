@@ -9,7 +9,16 @@ import RightSide from '../../RightSide/RightSide';
 const View_Curriculum = () => {
 
   const [visible, setVisible] = useState(true);
-  const [curriculum, setCurriculum] = useState({});
+  const [curriculum, setCurriculum] = useState({
+    
+          comments:'',
+          name:'',
+          area:'',
+          institution:'',
+          category:'',
+          hours : '',
+          file: ''
+  });
 
 
   const download = (e) => {
@@ -32,18 +41,15 @@ const View_Curriculum = () => {
 
   useEffect(()=>{
 
-    setCurriculum({
-          Id:localStorage.getItem('ID'),
-          comments:localStorage.getItem('comments'),
-          name:localStorage.getItem('name'),
-          area:localStorage.getItem('area'),
-          institution:localStorage.getItem('institution'),
-          category:localStorage.getItem('category'),
-          hours : localStorage.getItem('hours'),
-          file: localStorage.getItem('file')
-         })
-     },[]
-     )
+    var Id = localStorage.getItem('ID');
+    console.log(Id);
+    axios.get('http://localhost:5000/api/curriculum/readone/'+Id)
+    .then((getData)=>{
+     setCurriculum(getData.data);   
+
+   });         
+
+ },[])
 
 
      
@@ -141,7 +147,7 @@ const View_Curriculum = () => {
                           <Link to='/curriculums/ReadAll'>
                             <button type="button" className="btn btn-secondary btn-lg">Back</button>
                           </Link>
-                          {visible && <button type="button" className="btn btn-secondary btn-lg">Respond</button>}
+                         
 
                         </div>
 

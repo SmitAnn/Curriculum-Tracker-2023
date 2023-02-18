@@ -4,8 +4,9 @@ import Logo from '../../Images/logo.png';
 import { SidebarData } from "../../Data/Data";
 import { UilSignOutAlt, UilBars } from '@iconscout/react-unicons';
 import { motion } from 'framer-motion';
-
+import { useNavigate, Link } from 'react-router-dom'
 const Sidebar = () => {
+    const navigate = useNavigate();
     const [selected, setSelected] = useState(0);
     const [expanded, setExpanded] = useState(true);
     const sidebarVariants = {
@@ -17,6 +18,12 @@ const Sidebar = () => {
         }
     }
 
+    const logout = () => {
+        localStorage.removeItem('userToken');
+        localStorage.removeItem('userType');
+        localStorage.removeItem('userId');
+        navigate('/')
+      };
 
 
 
@@ -46,20 +53,23 @@ const Sidebar = () => {
                 <div className='menu'>
                     {SidebarData.map((item, index) => {
                         return (
+                            
                             <div className={selected === index ? 'menuItem active' : 'menuItem'}
                                 key={index}
                                 onClick={() => setSelected(index)}
                             >
                                 <item.icon />
-                                <span>
+                               <Link to={item.file}>
+                                <label className='menu_label'> 
                                     {item.heading}
-                                </span>
+                                
+                                </label></Link>
                             </div>
                         )
                     })}
-                    <div className='menuItem'>
+                    <div className='menuItem' onClick={logout}>
                         <UilSignOutAlt />
-
+<span >Signout</span>
                     </div>
                 </div>
             </motion.div>

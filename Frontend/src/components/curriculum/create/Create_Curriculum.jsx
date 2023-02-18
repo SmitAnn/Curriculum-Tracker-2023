@@ -2,21 +2,25 @@ import axios from 'axios';
 import React, { useState,useEffect } from 'react';
 import Sidebar from '../../Sidebar/Sidebar';
 import RightSide from '../../RightSide/RightSide';
+import {useNavigate,Link} from 'react-router-dom' 
 const Create_Curriculum = () => {
-
+    const navigate=useNavigate();  
     const [curriculum, setCurriculum] = useState({
         comments: '',
         file: '',
-        user: '63e21092596d01285d6dd681',
-        requirement: '63e61a07791f00f7a89cfdd3',
-        isApproved: false,name:'',
-        category:'',
-        area:'',
-        institution:'',
-        hours:''
+        user: sessionStorage.getItem("userId"),
+        requirements: '',
+        isApproved: false
 
     });
-    const [requirement,setRequirement]=useState({});
+    const [requirement,setRequirement]=useState({
+     
+              name:'',
+              category:'',
+             area:'',
+              institution:'',
+              hours :''
+    });
     
     useEffect(()=>{
               setRequirement({
@@ -25,9 +29,10 @@ const Create_Curriculum = () => {
               category:localStorage.getItem('category'),
               area:localStorage.getItem('area'),
               institution:localStorage.getItem('institution'),
-              hours : localStorage.getItem('hours'),
+              hours :localStorage.getItem('hours')
         
              })
+           
          },[]
          )
 
@@ -49,10 +54,10 @@ const Create_Curriculum = () => {
 
 
     const sendDataToAPI = async (event) => {
-
-        var { comments, user, requirement, isApproved, file } = curriculum
-        console.log(requirement.hours);
-        //        if (comments && user && requirement && isApproved && file) {
+ console.log(requirement.hours);
+        var { comments, file } = curriculum
+        
+       if (comments  && file) {
 
         const config = {
             headers: { 'content-type': 'multipart/form-data' }
@@ -60,7 +65,7 @@ const Create_Curriculum = () => {
         const formData = new FormData();
         formData.append('comments', curriculum.comments);
         formData.append('user', curriculum.user);
-        formData.append('requirement', curriculum.requirement);
+        formData.append('requirement', requirement.Id);
         formData.append('file', curriculum.file);
         formData.append('isApproved', curriculum.isApproved);
 
@@ -74,16 +79,26 @@ const Create_Curriculum = () => {
         const response = await axios.post(`http://localhost:5000/api/curriculum/create`, formData, config)
 
         if (response.data.success) {
-            alert("curriculum created successfully");
+            const ReqStatus=
+            {
+              "_id":requirement.Id,
+                "isClosed":true
+            }
+            axios.put(`http://localhost:5000/api/requirement/updateStatus`,ReqStatus)
+            alert("Curriculum created successfully");
+            navigate('/curriculums/ReadAll'); 
+            
+
+           
         }
         else {
-            alert("curriculum Creation failed");
+            alert("Curriculum Creation failed");
         }
 
-        //     }
-        //      else {
-        //        alert("Invalid Input");
-        //     }  
+           }
+             else {
+               alert("Invalid Input");
+             }  
 
     }
 
@@ -107,7 +122,7 @@ const Create_Curriculum = () => {
                                                     <h1 className="fw-Bolder mb-3 pb-3 headeing" >Curriculum</h1>
                                                 </div>
                                                 <br /><br />
-                                                <div className="form-outline">
+                                                <div >
                                                     <textarea className="form-control form-control-lg" name='comments' value={curriculum.comments} onChange={handleChange} id="exampleFormControlTextarea1" rows="3" placeholder="Comments" required></textarea>
 
                                                 </div>
@@ -122,9 +137,9 @@ const Create_Curriculum = () => {
 
                                                 <br />
                                                 <div className="d-flex justify-content-center pt-3">
-
+                                                <Link to='/curriculums/ReadAll'>
                                                     <button type="button" className="btn btn-secondary btn-md">Back</button>
-
+</Link>
                                                     <button type="button" onClick={sendDataToAPI} className="btn btn-secondary btn-md ms-2">Create</button>
                                                 </div>
                                             </div>

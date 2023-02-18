@@ -88,17 +88,18 @@ router.get('/read',async(req,res)=>{
     }
     })
 
-    router.put('/updateStatus',upload.single('file'),async(req,res)=>{
+    router.put('/updateStatus',async(req,res)=>{
       try {     
       
         let data = new RequirementModel({ 
-          _id:req.body.id,
+          _id:req.body._id,
           isClosed:req.body.isClosed
         }
       )
-      let id=req.body.id; 
-     const postData= await RequirementModel.updateOne({"_id": id},data);    
+      let id=req.body._id; 
+     const postData= await RequirementModel.findByIdAndUpdate({"_id": id},data);    
      res.status(200).send({success:true,msg:'postData',data:postData})
+     console.log(req.body.isClosed);
     }
     catch (error)
     {
@@ -159,5 +160,30 @@ router.get('/read',async(req,res)=>{
         res.status(400).json({error:"No requirement find"+ err.message});
     }
     })
+    router.put('/update',upload.single('file'),async(req,res)=>{
+      try {
+        // console.log("athira")
+        let data = new CurriculumModel({ 
+          _id: req.body.id,
+          comments:req.body.comments,
+          file:req.file.filename,
+          // file: req.body.file==''?'': (typeof(req.file)==="undefined"?req.body.file:req.file.filename)  ,
+          isApproved: req.body.isApproved
+          // isApproved:true
+        }
+      )  
+      
+      let id = req.body.id;
+      const postData= await CurriculumModel.updateOne({"_id": id},data);
   
+      res.status(200).send({success:true,msg:'postData',data:postData})
+      // res.send(postData)
+    }
+    catch (error)
+    {
+      res.status(400).send({success:false,msg:error.message})
+      console.log(error.message);
+    }
+       
+    })
 module.exports= router;

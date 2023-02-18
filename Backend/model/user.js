@@ -9,7 +9,8 @@ const userSchema = new mongoose.Schema({
     phoneNumber: Number,
     gender: String,
     qualification: String,
-    experience: String
+    experience: String,
+    userType: String
 })
 
 const User = new mongoose.model("User", userSchema);

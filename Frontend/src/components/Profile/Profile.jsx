@@ -28,7 +28,7 @@ import RightSide from '../RightSide/RightSide';
 
 
   useEffect(() => {
-    sessionStorage.setItem("userId","63e2072a586818b312d44ca2");
+    
     var userId=sessionStorage.getItem("userId");
      
       axios.get('http://localhost:5000/user/readone/'+userId)

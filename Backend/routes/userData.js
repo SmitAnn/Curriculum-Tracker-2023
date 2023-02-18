@@ -34,7 +34,7 @@ router.post("/signup", async (req, res) => {
         gender: req.body.gender,
         qualification: req.body.qualification,
         experience: req.body.experience,
-        usertype: req.body.usertype
+        userType: req.body.userType
     });
     console.log(data);
     await data.save();

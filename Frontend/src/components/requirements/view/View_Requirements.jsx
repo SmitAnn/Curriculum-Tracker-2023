@@ -16,7 +16,8 @@ const View_Requirements = () => {
         area:"",
         institution:"",
         hours : "",
-        file: ""
+        file: "",
+        isClosed:false
   });
 
   
@@ -40,8 +41,9 @@ const download =(e)=>
 }
 
  useEffect(()=>{
-  sessionStorage.setItem("userType","user");
+  //sessionStorage.setItem("userType","user");
   var userType=sessionStorage.getItem("userType");
+  console.log(userType);
        if(userType==='user')
        {
         setVisible(true);
@@ -67,7 +69,7 @@ const download =(e)=>
        localStorage.setItem("institution", requirement.institution);
        localStorage.setItem("category",requirement.category);
        localStorage.setItem("hours",requirement.hours);   
-       alert(requirement.alert);
+      
       /* setRequirement({'name':name,'area':area,'institution':institution,'category':category,
        'hours':hours,'file':files});   
        localStorage.setItem(LOCAL_STORAGE_KEY,json.stringify(requirement));*/ 
@@ -153,8 +155,9 @@ const download =(e)=>
             <Link to='/requirements/ReadAll'>
                       <button type="button" className="btn btn-secondary btn-md">Back</button>
                     </Link>
+                    
                     <Link to='/curriculum/create'>
-                    {visible && <button type="button"  className="btn btn-secondary btn-md" onClick={()=>setData()}>Respond</button>}
+                    {visible && !requirement.isClosed && <button type="button"  className="btn btn-secondary btn-md" onClick={()=>setData()}>Respond</button>}
 </Link>
                        </div>
   

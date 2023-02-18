@@ -33,11 +33,14 @@ const Login = () => {
                 if (getData.data.status === "success") {
                     let token = getData.data.token;
                     let userId = getData.data.data[0]._id;
-                    let userType = getData.data.data[0].usertype;
+                    let userType = getData.data.data[0].userType;
+                    let name = getData.data.data[0].userName;
                     sessionStorage.setItem("userToken", token);
                     sessionStorage.setItem("userId", userId);
                     sessionStorage.setItem("userType", userType);
-                    navigate("/home");
+                    sessionStorage.setItem("name", name);
+                  
+                    navigate("/dashboard");
 
                 }
                 else {
@@ -91,7 +94,7 @@ const Login = () => {
 
                             <MDBBtn className="mb-2 w-100" size="lg" style={{ backgroundColor: '#dd4b39' }}>
                                 <MDBIcon className="mx-2" />
-                                <Link to='/Registration'>
+                                <Link to='/registration'>
                                     Register Now!!!
                                 </Link>
                             </MDBBtn>

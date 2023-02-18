@@ -4,6 +4,8 @@ import {useNavigate,Link} from 'react-router-dom'
 import Sidebar from '../../Sidebar/Sidebar';
 import RightSide from '../../RightSide/RightSide';
 
+
+
 const Create_Requirements = () => {
   const navigate=useNavigate();  
   const [requirement,setRequirement]=useState({
@@ -90,14 +92,14 @@ else
             <h1 className="fw-Bolder mb-3 pb-3 headeing" >Training Requirement</h1>
             </div>
             <br/><br/>
-<div className="form-outline">
+<div >
 
   <input type="text" name='name' value={requirement.name} onChange={handleChange}  className="form-control form-control-md" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name of Requirement" required/>
  
 </div>
 <br/>
 
-  <div className="form-outline">
+  <div >
     <select id="Select" name='area' value={requirement.area} onChange={handleChange} className="form-control form-control-md"   placeholder="Area of Training" required>
     <option>Select Area</option>
     <option>FSD</option>
@@ -110,13 +112,13 @@ else
     </select>
   </div>
 <br/>
-<div className="form-outline mb-2">
+<div >
 
   <input type="text" name='institution' value={requirement.institution} onChange={handleChange} className="form-control form-control-md" id="exampleInputPassword1" placeholder="Institution" required/>
 </div>
 <br/>
 
-  <div className="form-outline mb-2">
+  <div >
     <select id="Select" name ='category' value={requirement.category} onChange={handleChange} className="form-control form-control-md"   placeholder="Category" required>
     <option>Select</option>
     <option>Retail</option>
@@ -126,7 +128,7 @@ else
   </div>
 
 <br/>
-<div className="form-outline mb-2">
+<div >
 
   <input type="text" name='hours' value={requirement.hours} onChange={handleChange}  className="form-control form-control-md" id="exampleInputPassword1" placeholder="No: of hours of training" required/>
 </div>

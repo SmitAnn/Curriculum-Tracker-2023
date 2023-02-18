@@ -45,20 +45,25 @@ const Read_Requirement = () => {
   }
 
   useEffect(() => {
-    sessionStorage.setItem("userType","admin");
+    
     var userType=sessionStorage.getItem("userType");
          if(userType==='user')
          {
           setVisible(false);
+          axios.get('http://localhost:5000/api/requirement/getnew')
+          .then((getData)=>{
+              setApiData(getData.data);         
+        })
          }
          else
          {
           setVisible(true);
+          axios.get('http://localhost:5000/api/requirement/read')
+          .then((getData)=>{
+              setApiData(getData.data);         
+        })
          }
-      axios.get('http://localhost:5000/api/requirement/read')
-      .then((getData)=>{
-          setApiData(getData.data);         
-    })
+     
   },[])
 
   const getData=()=>
@@ -103,7 +108,7 @@ const Read_Requirement = () => {
         <Table.HeaderCell>Area</Table.HeaderCell>
         <Table.HeaderCell>Institution</Table.HeaderCell>
         <Table.HeaderCell>Category</Table.HeaderCell>
-        <Table.HeaderCell>No: of hours of training</Table.HeaderCell>
+        <Table.HeaderCell>Hours</Table.HeaderCell>
         <Table.HeaderCell>File</Table.HeaderCell>
         <Table.HeaderCell>View</Table.HeaderCell>
         {visible &&  <Table.HeaderCell>Edit</Table.HeaderCell>}

@@ -21,26 +21,32 @@ export const SidebarData = [
     {
         icon: UilEstate,
         heading: "DashBoard",
+        file:"/dashboard"
     },
     {
         icon: UilUserCircle,
         heading: "Profile",
+        file:"/user/Profile"
     },
     {
         icon: UilClipboardAlt,
         heading: "Requirement",
+        file:"/requirements/ReadAll"
     },
     {
         icon: UilBookOpen,
         heading: "Curriculum",
+        file:"/curriculums/ReadAll"
     },
     {
         icon: UilBell,
         heading: "Notification",
+        file:"/requirements/ReadAll"
     },
     {
         icon: UilChart,
         heading: "Analytics",
+        file:"/requirements/ReadAll"
     },
 
 ];

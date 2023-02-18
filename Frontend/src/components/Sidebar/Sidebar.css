@@ -110,4 +110,9 @@
         padding:10px;
         border-radius: 10px;
     }
+    .menu_label
+    {
+        display: block;
+        color: black;
+    }
 }

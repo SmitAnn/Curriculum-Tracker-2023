@@ -12,7 +12,7 @@ const Read_Curriculum = () => {
 
   const [visible, setVisible] = useState(true);
   const [apiData, setApiData] = useState([]);
-
+  const [editVisible, setEditVisible] = useState(true);
   const ConfirmDelete = (id) => {
 
     confirmAlert({
@@ -49,18 +49,27 @@ const Read_Curriculum = () => {
 
 
   useEffect(() => {
-    sessionStorage.setItem("userType", "admin");
+    //sessionStorage.setItem("userType", "admin");
     var userType = sessionStorage.getItem("userType");
     if (userType === 'user') {
+      
+      var userId=sessionStorage.getItem("userId");
       setVisible(false);
-    }
-    else {
-      setVisible(true);
-    }
-    axios.get('http://localhost:5000/api/curriculum/read')
+      setEditVisible(false);
+      axios.get('http://localhost:5000/api/curriculum/readbyuser/'+userId)
       .then((getData) => {
         setApiData(getData.data);
       })
+    }
+    else {
+      setVisible(true);
+      setEditVisible(true);
+      axios.get('http://localhost:5000/api/curriculum/read')
+      .then((getData) => {
+        setApiData(getData.data);
+      })
+    }
+    
   }, [])
 
   const getData = () => {
@@ -112,7 +121,7 @@ const Read_Curriculum = () => {
                         <Table.HeaderCell>Comments</Table.HeaderCell>
                         <Table.HeaderCell>Approval Status</Table.HeaderCell>
                         <Table.HeaderCell>View</Table.HeaderCell>
-                        {visible && <Table.HeaderCell>Edit</Table.HeaderCell>}
+                        <Table.HeaderCell>Edit</Table.HeaderCell>
                         {visible && <Table.HeaderCell>Delete</Table.HeaderCell>}
                       </Table.Row>
                     </Table.Header>
@@ -136,13 +145,13 @@ const Read_Curriculum = () => {
                               <Button className="btn btn-secondary btn-md" onClick={() => setData(data._id, data.comments,  data.name, data.area, data.institution,  data.category, data.hours,data.file)}>View</Button>
                               </Link >
                               </Table.Cell>
-                            {!data.isApproved &&
-                              <Table.Cell>
+                          
+                              <Table.Cell>  {(editVisible || !data.isApproved) &&
                                 <Link to='/curriculums/update'>
                                   <Button className="btn btn-secondary btn-md" onClick={() => setData(data._id, data.comments, data.file)}>Edit</Button>
-                                </Link>
+                                </Link>}
 
-                              </Table.Cell>}
+                              </Table.Cell>
                             {visible &&
                               <Table.Cell>
 

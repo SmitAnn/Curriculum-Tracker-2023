@@ -200,7 +200,31 @@ router.delete('/delete/:id',async(req,res)=>{
             console.log(error);
         }
     })
+    router.get('/readone/:id',async(req,res)=>{
+      try
+      {
+          let id=req.params.id;
+          const data =await CurriculumModel.findOne({"_id": id});
+         res.json(data);  
+      }
+      catch(err)
+      {
+          res.status(400).json({error:"No requirement find"});
+      }
+      })
 
+      router.get('/readbyuser/:user',async(req,res)=>{
+        try
+        {
+            let user=req.params.user;
+            const data =await CurriculumModel.find({"user": user});
+           res.send(data);  
+        }
+        catch(err)
+        {
+            res.status(400).json({error:"No requirement find"});
+        }
+        })
 
 
 module.exports = router;

@@ -32,7 +32,8 @@ const Registration = () => {
         phoneNumber: "",
         gender: "",
         qualification: "",
-        experience: ""
+        experience: "",
+        userType:"user"
     })
 
 
@@ -132,12 +133,12 @@ const Registration = () => {
                         <div>
                             <MDBBtn className='mb-4' size='lg' onClick={register} >Register</MDBBtn>
                             &nbsp;&nbsp;&nbsp;
-                            <MDBBtn className='mb-4' size='lg'>
-                                <Link to='/'>
+                            <Link to='/'> <MDBBtn className='mb-4' size='lg'>
+                               
                                     Login
-                                </Link>
+                                
 
-                            </MDBBtn>
+                            </MDBBtn></Link>
                         </div>
 
                     </MDBCardBody>
