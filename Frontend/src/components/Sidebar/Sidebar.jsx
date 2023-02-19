@@ -20,21 +20,21 @@ const Sidebar = () => {
     }
     useEffect(() => {
       
-    //     var token=sessionStorage.getItem("userToken");
-    //     const TokenData=
-    //     {
-    //       "token":token
+//         var token=sessionStorage.getItem("userToken");
+//         const TokenData=
+//         {
+//           "token":token
     
-    //     }
-    //   axios.post('http://localhost:5000/user/logincheck',
-    //  TokenData
-    //   ).then((response)=>{
+//         }
+//       axios.post('http://localhost:5000/user/logincheck',
+//      TokenData
+//       ).then((response)=>{
     
-    // if(response.data.status==="Unauthorised user")
-    // {
-    // alert("Login first to access this application");
-    // navigate('/')
-    // }
+//     if(response.data.status==="Unauthorised user")
+//     {
+//     alert("Login first to access this application");
+//     navigate('/')
+//     }
 // })
 })
 

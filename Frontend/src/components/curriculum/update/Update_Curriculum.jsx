@@ -11,9 +11,17 @@ const Update_Curriculum = () => {
     file: '',
     isApproved: false
   });
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-
+    var userType = sessionStorage.getItem("userType");
+    if (userType === 'user') {
+      setVisible(false);
+    }
+    else
+    {
+setVisible(true);
+    }
     setCurriculum({
       Id: localStorage.getItem('ID'),
       comments: localStorage.getItem('comments'),
@@ -100,11 +108,12 @@ const Update_Curriculum = () => {
                           <input type="file" onChange={handleChange} name="file" className='form-control form-control-lg' placeholder='Choose file' />
                         </div>
                         <br />
+                        {visible &&
                         <div className="form-group">
                           
                           <input class="form-check-input-lg" type="checkbox" onChange={handleChange} value={curriculum.isApproved} name="isApproved" id="flexCheckChecked" />
                           <label class="form-check-label" for="flexCheckChecked" /> Approve
-                        </div>
+                        </div>}
                         <div className="d-flex justify-content-center pt-3">
                           <Link to='/curriculums/ReadAll'>
                             <button type="button" className="btn btn-secondary btn-lg">Back</button>

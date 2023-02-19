@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import "./Search.css";
+import './Search.css';
+
 import TextField from "@mui/material/TextField";
 
 
@@ -9,11 +10,12 @@ import TextField from "@mui/material/TextField";
 const Search = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [data, setData] = useState([]);
+    // const [key, setKey] = useState("")
 
 
     useEffect(() => {
 
-        axios.get('http://localhost:5000/api/curriculum/read')
+        axios.get('http://localhost:5000/api/curriculum/read', { params: { searchTerm, limit: 3 } })
             .then((getData) => {
                 setData((getData.data));
 
@@ -47,7 +49,7 @@ const Search = () => {
                 {
                     data
                         .filter((val) => {
-                            console.log(searchTerm)
+                            // console.log(searchTerm)
                             // if (searchTerm == "") {
                             //     return val;
                             // } else 
@@ -64,14 +66,23 @@ const Search = () => {
                         })
                         .map((val) => {
                             return (
-                                <div className="template" key={val.id}>
-                                    <h3>{val.name}</h3>
-                                    <h3>{val.area}</h3>
-                                    <h3>{val.category}</h3>
-                                    <h3>{val.institution}</h3>
-                                   
 
-                  </div>
+                                <div className="template" key={val.id}>
+                                    <div className="box1">
+                                        <h5>{val.name}</h5>
+                                        {/* </div>
+                                    <div className="box2"> */}
+                                        <h5>{val.area}</h5>
+                                        {/* </div>
+                                    <div className="box3"> */}
+                                        <h5>{val.category}</h5>
+                                        {/* </div>
+                                    <div className="box4"> */}
+                                        <h5>{val.institution}</h5>
+                                    </div>
+                                    {/* <p className="price">{val.category}</p> */}
+                                </div>
+
                             )
                         })
                 }

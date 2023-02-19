@@ -17,7 +17,8 @@ const View_Curriculum = () => {
           institution:'',
           category:'',
           hours : '',
-          file: ''
+          file: '',
+          isApproved:false
   });
 
 
@@ -139,6 +140,15 @@ const View_Curriculum = () => {
                               </MDBCol>
                               <MDBCol sm="9">
                                 <button onClick={(e => download(e))}>{curriculum.file}</button>
+                              </MDBCol>
+                            </MDBRow>
+                            <hr/>
+                            <MDBRow>
+                              <MDBCol sm="3">
+                                <MDBCardText>Status</MDBCardText>
+                              </MDBCol>
+                              <MDBCol sm="9">
+                                <MDBCardText className="text-muted">{curriculum.isApproved?'Approved':'Pending'}</MDBCardText>
                               </MDBCol>
                             </MDBRow>
                           </MDBCardBody>
