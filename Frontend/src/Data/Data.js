@@ -43,12 +43,7 @@ export const SidebarData = [
         heading: "Notification",
         file:"/curriculums/dash"
     },
-    {
-        icon: UilChart,
-        heading: "Analytics",
-        file:"/requirements/ReadAll"
-    },
-
+  
 ];
 
 export const CardsData = [

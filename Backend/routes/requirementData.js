@@ -9,6 +9,8 @@ const multer = require('multer');
 const path = require('path');
 const { stringify } = require('querystring');
 router.use(express.static('public'));
+const bcrpt=require('bcrypt')
+const jwt=require('jsonwebtoken')
 
 let storage=multer.diskStorage({
   destination:(req,file,callback) =>{
@@ -26,23 +28,36 @@ filename:(req,file,callback)=>{
 );
 const upload= multer({storage:storage})
 
-router.post('/create',upload.single('file'),async (req,res)=>{   
+
+
+
+
+
+
+router.post('/create',upload.single('file'), (req,res)=>{   
   try
   {
    
- 
-        let data = new RequirementModel({ 
-        name:req.body.name,
-        area:req.body.area,
-        institution:req.body.institution,  
-        category:req.body.category,
-        hours:req.body.hours,
-        file: req.body.file==''?'': req.file.filename,
-        isClosed:req.body.isClosed
-      }
-    )
-    const postData= await data.save();
-    res.status(200).send({success:true,msg:'postData',data:postData})
+    jwt.verify(req.body.token,"myKey",(err,decoded)=>{
+      if(decoded && decoded.email){
+     
+    
+            let data = new RequirementModel({ 
+            name:req.body.name,
+            area:req.body.area,
+            institution:req.body.institution,  
+            category:req.body.category,
+            hours:req.body.hours,
+            file: req.body.file==''?'': req.file.filename,
+            isClosed:req.body.isClosed } )
+            const postData=  data.save();
+            res.status(200).send({success:true,msg:'postData',data:postData})
+    }
+      else{
+        res.json({"status":"Unauthorised user"});
+
+    }
+  }) 
   }
   catch(err)
   {
@@ -110,27 +125,35 @@ router.get('/read',async(req,res)=>{
 
     router.put('/update',upload.single('file'),async(req,res)=>{
       try {     
-      
-        let data = new RequirementModel({ 
-          _id:req.body.id,
-          name:req.body.name,
-          area:req.body.area,
-          institution:req.body.institution,  
-          category:req.body.category,
-          hours:req.body.hours,
-         // file: typeof(req.file.filename)==="undefined"?'': req.file.filename  
-         file: req.body.file==''?'': (typeof(req.file)==="undefined"?req.body.file:req.file.filename)  ,
-         isClosed:req.body.isClosed
-        }
-      )
-      let id=req.body.id; 
-     const postData= await RequirementModel.updateOne({"_id": id},data);    
-     res.status(200).send({success:true,msg:'postData',data:postData})
+        console.log("ghf");
+        // jwt.verify(req.body.token,"myKey",(err,decoded)=>{
+        //   if(decoded && decoded.email){
+                let data = new RequirementModel({ 
+                  _id:req.body.id,
+                  name:req.body.name,
+                  area:req.body.area,
+                  institution:req.body.institution,  
+                  category:req.body.category,
+                  hours:req.body.hours,
+                // file: typeof(req.file.filename)==="undefined"?'': req.file.filename  
+                file: req.body.file==''?'': (typeof(req.file)==="undefined"?req.body.file:req.file.filename)  ,
+                isClosed:req.body.isClosed
+                }
+              )
+              let id=req.body.id; 
+            const postData= await RequirementModel.updateOne({"_id": id},data);    
+            res.status(200).send({success:true,msg:'postData',data:postData})
+        //   }
+        //   else{
+        //     res.json({"status":"Unauthorised user"});
+    
+        // }
+      // }) 
     }
     catch (error)
     {
       res.status(400).send({success:false,msg:error.message})
-      console.log(error.message);
+     
     }       
     })
 
@@ -160,30 +183,5 @@ router.get('/read',async(req,res)=>{
         res.status(400).json({error:"No requirement find"+ err.message});
     }
     })
-    router.put('/update',upload.single('file'),async(req,res)=>{
-      try {
-        // console.log("athira")
-        let data = new CurriculumModel({ 
-          _id: req.body.id,
-          comments:req.body.comments,
-          file:req.file.filename,
-          // file: req.body.file==''?'': (typeof(req.file)==="undefined"?req.body.file:req.file.filename)  ,
-          isApproved: req.body.isApproved
-          // isApproved:true
-        }
-      )  
-      
-      let id = req.body.id;
-      const postData= await CurriculumModel.updateOne({"_id": id},data);
-  
-      res.status(200).send({success:true,msg:'postData',data:postData})
-      // res.send(postData)
-    }
-    catch (error)
-    {
-      res.status(400).send({success:false,msg:error.message})
-      console.log(error.message);
-    }
-       
-    })
+    
 module.exports= router;

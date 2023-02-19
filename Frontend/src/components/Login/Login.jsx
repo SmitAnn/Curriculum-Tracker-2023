@@ -39,7 +39,7 @@ const Login = () => {
                     sessionStorage.setItem("userId", userId);
                     sessionStorage.setItem("userType", userType);
                     sessionStorage.setItem("name", name);
-                  
+                
                     navigate("/dashboard");
 
                 }

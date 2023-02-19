@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 import {useNavigate,Link} from 'react-router-dom' 
 import './Updates.css';
 import axios from 'axios';
-
+import img1 from "../../Images/update.jpg";
 const New_Updates = () => {
     const navigate=useNavigate();   
     const [requirement,setRequirement]=useState([]);
 
 
     useEffect(() => {
-        sessionStorage.setItem("userType","user");
+       
         var userType=sessionStorage.getItem("userType");
              if(userType==='user')
              {
@@ -46,7 +46,7 @@ const New_Updates = () => {
                        
                         <div className="update">
                             
-                            <img src={update.img} alt='' />
+                            <img src={img1} alt='' />
                             <div className="noti">
                                 <div style={{ marginBottom: '0.5rem' }}>
                                     <span>{"Name : "+update.name}</span><br/>

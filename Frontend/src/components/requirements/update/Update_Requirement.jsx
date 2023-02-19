@@ -43,7 +43,7 @@ const Update_Requirement = () => {
  }
 
  const sendDataToAPI = async(event)=>{
-
+  var token=sessionStorage.getItem("userToken");
   const config={
     headers :{'content-type':'multipart/form-data'}};
    const formData=new FormData();
@@ -55,17 +55,25 @@ const Update_Requirement = () => {
    formData.append('hours',requirement.hours);
    formData.append('file',requirement.file);
    formData.append('isClosed',requirement.isClosed);
-
+   formData.append('token',token);
     const response= await axios.put(`http://localhost:5000/api/requirement/update`,formData,config)
-  if(response.data.success)
-  {
-    alert("Requirement updated successfully");
-    navigate('/requirements/ReadAll');
-  }
-  else
-  {
-    alert("Requirement update failed");
-  }
+    if(response.data.status==="Unauthorised user")
+    {
+    alert("Please login first");
+    navigate('/')
+    }
+    else
+    {
+      if(response.data.success)
+      {
+        alert("Requirement updated successfully");
+        navigate('/requirements/ReadAll');
+      }
+      else
+      {
+        alert("Requirement update failed");
+      }
+    }
  }
   return (
     <div className="App">

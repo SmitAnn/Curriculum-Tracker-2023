@@ -157,7 +157,7 @@ const download =(e)=>
                     </Link>
                     
                     <Link to='/curriculum/create'>
-                    {visible && !requirement.isClosed && <button type="button"  className="btn btn-secondary btn-md" onClick={()=>setData()}>Respond</button>}
+                    { !requirement.isClosed && <button type="button"  className="btn btn-secondary btn-md" onClick={()=>setData()}>Respond</button>}
 </Link>
                        </div>
   

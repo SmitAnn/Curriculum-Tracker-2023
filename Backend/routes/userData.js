@@ -136,6 +136,17 @@ router.get('/readone/:id',async(req,res)=>{
 //         res.status(400).json({ error: "No requirement find" });
 //     }
 // })
+router.post('/logincheck',(req,res)=>{
 
+    jwt.verify(req.body.token,"myKey",(err,decoded)=>{
+        if(decoded && decoded.email){
+            res.json({"status":"success"})
+        }
+        else{
+            res.json({"status":"Unauthorised user"})
+    
+        }
+       })
+    })
 module.exports = router;
 

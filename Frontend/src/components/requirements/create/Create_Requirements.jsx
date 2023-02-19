@@ -44,6 +44,7 @@ if(name && area && category&& institution && hours)
   }
   else
   {
+    var token=sessionStorage.getItem("userToken");
   const config={
     headers :{'content-type':'multipart/form-data'}};
    const formData=new FormData();
@@ -54,7 +55,16 @@ if(name && area && category&& institution && hours)
    formData.append('hours',requirement.hours);
    formData.append('file',requirement.file);
    formData.append('isClosed',requirement.isClosed);
+   formData.append('token',token);
+
   const response= await  axios.post(`http://localhost:5000/api/requirement/create`,formData,config)
+  if(response.data.status==="Unauthorised user")
+{
+alert("Please login first");
+navigate('/')
+}
+else
+{
   if(response.data.success)
   {
     alert("Requirement created successfully");
@@ -64,6 +74,7 @@ if(name && area && category&& institution && hours)
   {
     alert("Requirement Creation failed");
   }
+}
 }
 }
 else

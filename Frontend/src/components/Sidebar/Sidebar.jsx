@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import '../Sidebar/Sidebar.css';
 import Logo from '../../Images/logo.png';
 import { SidebarData } from "../../Data/Data";
 import { UilSignOutAlt, UilBars } from '@iconscout/react-unicons';
 import { motion } from 'framer-motion';
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 const Sidebar = () => {
     const navigate = useNavigate();
     const [selected, setSelected] = useState(0);
@@ -17,6 +18,26 @@ const Sidebar = () => {
             left: '-60%'
         }
     }
+    useEffect(() => {
+      
+    //     var token=sessionStorage.getItem("userToken");
+    //     const TokenData=
+    //     {
+    //       "token":token
+    
+    //     }
+    //   axios.post('http://localhost:5000/user/logincheck',
+    //  TokenData
+    //   ).then((response)=>{
+    
+    // if(response.data.status==="Unauthorised user")
+    // {
+    // alert("Login first to access this application");
+    // navigate('/')
+    // }
+// })
+})
+
 
     const logout = () => {
         localStorage.removeItem('userToken');

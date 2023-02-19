@@ -47,6 +47,7 @@ const Read_Requirement = () => {
   useEffect(() => {
     
     var userType=sessionStorage.getItem("userType");
+    console.log(userType);
          if(userType==='user')
          {
           setVisible(false);

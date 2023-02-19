@@ -116,9 +116,8 @@ const Curriculum_Dash = () => {
     }
 }
   return (
-    <div className="App">
-    <div className="AppGlass">
- <Sidebar/>
+    <div >
+   
     <section className="Background">
 
       <div className="container py-5 h-100">
@@ -187,8 +186,7 @@ const Curriculum_Dash = () => {
       </div>
 
     </section>
-    <RightSide/>
-  </div>
+   
   </div>
   )
 }

@@ -49,7 +49,7 @@ const Update_Curriculum = () => {
 
 
   const sendDataToAPI = async (event) => {
-    console.log(curriculum.Id);
+    
     const config = {
       headers: { 'content-type': 'multipart/form-data' }
     };
@@ -93,7 +93,7 @@ const Update_Curriculum = () => {
                         <br />
                         <br />
                         <div>
-                          <input type="text" rows="3"  name='comments' value={curriculum.comments} onChange={handleChange} className="form-control form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Comments" required />
+                        <textarea className="form-control form-control-lg" name='comments' value={curriculum.comments} onChange={handleChange} id="exampleFormControlTextarea1" rows="3" placeholder="Comments" required></textarea>
                         </div>
                         <br />
                         <div className="form-group">
@@ -101,6 +101,7 @@ const Update_Curriculum = () => {
                         </div>
                         <br />
                         <div className="form-group">
+                          
                           <input class="form-check-input-lg" type="checkbox" onChange={handleChange} value={curriculum.isApproved} name="isApproved" id="flexCheckChecked" />
                           <label class="form-check-label" for="flexCheckChecked" /> Approve
                         </div>
