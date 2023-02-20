@@ -42,18 +42,7 @@ router.post("/signup", async (req, res) => {
 
 })
 
-router.post('/logincheck', (req, res) => {
 
-    jwt.verify(req.body.token, "myKey", (err, decoded) => {
-        if (decoded && decoded.username) {
-            res.json({ "status": "success" })
-        }
-        else {
-            res.json({ "status": "Unauthorised user" })
-
-        }
-    })
-})
 
 router.post("/signin", async (req, res) => {
     var email = req.body.email;

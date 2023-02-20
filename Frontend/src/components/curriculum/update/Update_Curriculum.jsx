@@ -3,9 +3,11 @@ import { useNavigate, Link } from 'react-router-dom'
 import React, { useEffect, useState } from "react";
 import Sidebar from '../../Sidebar/Sidebar';
 import RightSide from '../../RightSide/RightSide';
+import FileDownload from "js-file-download"
 const Update_Curriculum = () => {
 
   const navigate = useNavigate();
+  const [id,setId]=useState(localStorage.getItem('ID'));
   const [curriculum, setCurriculum] = useState({
     comments: '',
     file: '',
@@ -22,13 +24,22 @@ const Update_Curriculum = () => {
     {
 setVisible(true);
     }
-    setCurriculum({
-      Id: localStorage.getItem('ID'),
-      comments: localStorage.getItem('comments'),
-      file: localStorage.getItem('file'),
-      isApproved: localStorage.getItem('isApproved')
+    // setCurriculum({
+    //   Id: localStorage.getItem('ID'),
+    //   comments: localStorage.getItem('comments'),
+    //   file: localStorage.getItem('file'),
+    //   isApproved: localStorage.getItem('isApproved')
 
-    })
+    // })
+   
+    
+  
+    axios.get('http://localhost:5000/api/curriculum/readone/'+id)
+    .then((getData)=>{
+     setCurriculum(getData.data);   
+    });         
+
+
   }, []
   )
 
@@ -38,6 +49,7 @@ setVisible(true);
     if (e.target.name === 'isApproved'){
       let name = e.target.name;
       let value = e.target.checked;
+      
       setCurriculum({ ...curriculum, [name]: value })
     }
     else if (e.target.name !== 'file') {
@@ -58,15 +70,16 @@ setVisible(true);
 
   const sendDataToAPI = async (event) => {
     
-    const config = {
-      headers: { 'content-type': 'multipart/form-data' }
-    };
+    var token=sessionStorage.getItem("userToken");
+        const config={
+          headers :{'content-type':'multipart/form-data','x-access-token':token}};
+      
     const formData = new FormData();
-    formData.append('id', curriculum.Id);
+    formData.append('id', id);
     formData.append('comments', curriculum.comments);
     formData.append('file', curriculum.file);
     formData.append('isApproved', curriculum.isApproved);
-    console.log(curriculum.isApproved)
+   
     const response = await axios.put(`http://localhost:5000/api/curriculum/update`, formData, config)
     if (response.data.success) {
       alert("curriculums updated successfully");
@@ -77,6 +90,23 @@ setVisible(true);
     }
   }
 
+
+  const download = (e) => {
+    e.preventDefault();
+    axios({
+      url: `http://localhost:5000/api/curriculum/download/${curriculum.file}`,
+      methgod: 'GET',
+      data: {
+        file: curriculum.file
+      },
+      responseType: 'blob'
+      
+
+    }).then((res) => {
+      console.log(res.data)
+      FileDownload(res.data, curriculum.file)
+    })
+  }
 
   return (
     <div className="App">
@@ -108,10 +138,14 @@ setVisible(true);
                           <input type="file" onChange={handleChange} name="file" className='form-control form-control-lg' placeholder='Choose file' />
                         </div>
                         <br />
+                        <div>
+                        <button onClick={(e => download(e))}>{curriculum.file}</button>
+                        </div>
+                        <br/>
                         {visible &&
                         <div className="form-group">
                           
-                          <input class="form-check-input-lg" type="checkbox" onChange={handleChange} value={curriculum.isApproved} name="isApproved" id="flexCheckChecked" />
+                          <input class="form-check-input-lg" type="checkbox" name='isApproved' onChange={handleChange} value={curriculum.isApproved} checked={curriculum.isApproved}  id="flexCheckChecked" />
                           <label class="form-check-label" for="flexCheckChecked" /> Approve
                         </div>}
                         <div className="d-flex justify-content-center pt-3">

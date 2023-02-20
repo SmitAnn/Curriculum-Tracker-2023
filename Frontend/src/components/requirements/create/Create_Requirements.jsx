@@ -37,7 +37,7 @@ const Create_Requirements = () => {
 if(name && area && category&& institution && hours)
 {
   let regex=/[0-9\b]+$/;
-  console.log(hours);
+ 
   if(!regex.test(hours))
   {
     alert('Hours should be in number format')
@@ -46,7 +46,7 @@ if(name && area && category&& institution && hours)
   {
     var token=sessionStorage.getItem("userToken");
   const config={
-    headers :{'content-type':'multipart/form-data'}};
+    headers :{'content-type':'multipart/form-data','x-access-token':token}};
    const formData=new FormData();
    formData.append('name',requirement.name);
    formData.append('area',requirement.area);
@@ -55,16 +55,9 @@ if(name && area && category&& institution && hours)
    formData.append('hours',requirement.hours);
    formData.append('file',requirement.file);
    formData.append('isClosed',requirement.isClosed);
-   formData.append('token',token);
 
   const response= await  axios.post(`http://localhost:5000/api/requirement/create`,formData,config)
-  if(response.data.status==="Unauthorised user")
-{
-alert("Please login first");
-navigate('/')
-}
-else
-{
+  
   if(response.data.success)
   {
     alert("Requirement created successfully");
@@ -74,7 +67,7 @@ else
   {
     alert("Requirement Creation failed");
   }
-}
+
 }
 }
 else

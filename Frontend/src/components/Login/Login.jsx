@@ -82,7 +82,7 @@ const Login = () => {
                             <p className="text-white-50 mb-3">Please enter your login and password!</p>
 
                             <MDBInput wrapperClass='mb-4 w-100' label='Email address' id='formControlLg' type='email' size="lg" onChange={(e) => setemail(e.target.value)} />
-                            <MDBInput wrapperClass='mb-4 w-100' label='Password' id='formControlLg' type='password' size="lg" onChange={(e) => setpassword(e.target.value)} />
+                            <MDBInput wrapperClass='mb-4 w-100' label='Password' id='formControlpass' type='password' size="lg" onChange={(e) => setpassword(e.target.value)} />
 
                             <MDBCheckbox name='flexCheck' id='flexCheckDefault' className='mb-4' label='Remember password' />
 

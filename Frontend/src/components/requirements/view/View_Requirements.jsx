@@ -53,8 +53,9 @@ const download =(e)=>
         setVisible(false);
        }
        var Id = localStorage.getItem('ID');
-       console.log(Id);
-       Axios.get('http://localhost:5000/api/requirement/readone/'+Id)
+       var token=sessionStorage.getItem("userToken");
+       const  headers ={'x-access-token':token};
+       Axios.get('http://localhost:5000/api/requirement/readone/'+Id,{headers:headers})
        .then((getData)=>{
         setRequirement(getData.data);   
   

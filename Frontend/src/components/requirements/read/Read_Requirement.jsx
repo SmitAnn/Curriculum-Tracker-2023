@@ -30,7 +30,9 @@ const Read_Requirement = () => {
 
   const onDelete=(id)=>
   {
-    axios.delete('http://localhost:5000/api/requirement/delete/'+id)
+    var token=sessionStorage.getItem("userToken");
+    const  headers ={'x-access-token':token};
+    axios.delete('http://localhost:5000/api/requirement/delete/'+id,{headers:headers})
     .then((response)=>
     {if(response.data.status==="success")
     {
@@ -47,11 +49,14 @@ const Read_Requirement = () => {
   useEffect(() => {
     
     var userType=sessionStorage.getItem("userType");
-    console.log(userType);
-         if(userType==='user')
+    var token=sessionStorage.getItem("userToken");
+    
+    const  headers ={'x-access-token':token};
+    
+        if(userType==='user')
          {
           setVisible(false);
-          axios.get('http://localhost:5000/api/requirement/getnew')
+          axios.get('http://localhost:5000/api/requirement/getnew' ,{headers:headers})
           .then((getData)=>{
               setApiData(getData.data);         
         })
@@ -59,7 +64,7 @@ const Read_Requirement = () => {
          else
          {
           setVisible(true);
-          axios.get('http://localhost:5000/api/requirement/read')
+          axios.get('http://localhost:5000/api/requirement/read',{headers:headers})
           .then((getData)=>{
               setApiData(getData.data);         
         })
@@ -83,6 +88,7 @@ const Read_Requirement = () => {
     localStorage.setItem("hours",hours);   
     localStorage.setItem("file",files);
     localStorage.setItem("isClosed",isClosed);
+
    /* setRequirement({'name':name,'area':area,'institution':institution,'category':category,
     'hours':hours,'file':files});   
     localStorage.setItem(LOCAL_STORAGE_KEY,json.stringify(requirement));*/ 

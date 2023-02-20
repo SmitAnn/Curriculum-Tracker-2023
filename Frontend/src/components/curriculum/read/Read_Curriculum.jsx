@@ -34,7 +34,10 @@ const Read_Curriculum = () => {
 
 
   const onDelete = (id) => {
-    axios.delete('http://localhost:5000/api/curriculum/delete/' + id)
+    var token=sessionStorage.getItem("userToken");
+    console.log(token);
+    const  headers ={'x-access-token':token};
+    axios.delete('http://localhost:5000/api/curriculum/delete/' + id,{headers:headers})
       .then((response) => {
         if (response.data.status === "success") {
           alert("Curriculum deleted successfully");
@@ -49,7 +52,7 @@ const Read_Curriculum = () => {
 
 
   useEffect(() => {
-    //sessionStorage.setItem("userType", "admin");
+   
     var userType = sessionStorage.getItem("userType");
     if (userType === 'user') {
       
@@ -73,6 +76,8 @@ const Read_Curriculum = () => {
   }, [])
 
   const getData = () => {
+   
+  
     axios.get('http://localhost:5000/api/curriculum/read')
       .then((getData) => {
         console.log(getData.data)
@@ -82,7 +87,7 @@ const Read_Curriculum = () => {
 
 
 
-  const setData = (id,comments, name,area,institution,category, hours, file,) => {
+  const setData = (id,comments, name,area,institution,category, hours, file,isApproved) => {
   localStorage.setItem("ID", id);
   localStorage.setItem("comments", comments);
   localStorage.setItem("name", name);
@@ -91,7 +96,7 @@ const Read_Curriculum = () => {
   localStorage.setItem("category", category);
   localStorage.setItem("hours", hours);
   localStorage.setItem("file", file)
-
+  localStorage.setItem("isApproved", isApproved)
    }
 
   return (
@@ -142,13 +147,13 @@ const Read_Curriculum = () => {
                             <Table.Cell>{data.isApproved?"Approved":"Pending"}</Table.Cell>
                          <Table.Cell>
                             <Link to='/curriculums/ReadOne'>
-                              <Button className="btn btn-secondary btn-md" onClick={() => setData(data._id, data.comments,  data.name, data.area, data.institution,  data.category, data.hours,data.file)}>View</Button>
+                              <Button className="btn btn-secondary btn-md" onClick={() => setData(data._id, data.comments,  data.name, data.area, data.institution,  data.category, data.hours,data.file,data.isApproved)}>View</Button>
                               </Link >
                               </Table.Cell>
                           
                               <Table.Cell>  {(editVisible || !data.isApproved) &&
                                 <Link to='/curriculums/update'>
-                                  <Button className="btn btn-secondary btn-md" onClick={() => setData(data._id, data.comments, data.file)}>Edit</Button>
+                                  <Button className="btn btn-secondary btn-md" onClick={() => setData(data._id, data.comments,data.name,data.area,data.institution,data.category,data.hours, data.file,data.isApproved)}>Edit</Button>
                                 </Link>}
 
                               </Table.Cell>

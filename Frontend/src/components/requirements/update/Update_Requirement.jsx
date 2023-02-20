@@ -45,7 +45,7 @@ const Update_Requirement = () => {
  const sendDataToAPI = async(event)=>{
   var token=sessionStorage.getItem("userToken");
   const config={
-    headers :{'content-type':'multipart/form-data'}};
+    headers :{'content-type':'multipart/form-data','x-access-token':token}};
    const formData=new FormData();
    formData.append('id', requirement.Id);
    formData.append('name', requirement.name);
@@ -54,8 +54,7 @@ const Update_Requirement = () => {
    formData.append('institution',requirement.institution);
    formData.append('hours',requirement.hours);
    formData.append('file',requirement.file);
-   formData.append('isClosed',requirement.isClosed);
-   formData.append('token',token);
+
     const response= await axios.put(`http://localhost:5000/api/requirement/update`,formData,config)
     if(response.data.status==="Unauthorised user")
     {

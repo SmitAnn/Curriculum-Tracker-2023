@@ -58,10 +58,10 @@ const Create_Curriculum = () => {
         var { comments, file } = curriculum
         
        if (comments  && file) {
-
-        const config = {
-            headers: { 'content-type': 'multipart/form-data' }
-        };
+        var token=sessionStorage.getItem("userToken");
+        const config={
+          headers :{'content-type':'multipart/form-data','x-access-token':token}};
+      
         const formData = new FormData();
         formData.append('comments', curriculum.comments);
         formData.append('user', curriculum.user);

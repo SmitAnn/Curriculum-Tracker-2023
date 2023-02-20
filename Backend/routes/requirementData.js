@@ -9,6 +9,7 @@ const multer = require('multer');
 const path = require('path');
 const { stringify } = require('querystring');
 router.use(express.static('public'));
+let verifyToken =require('../routes/verifytoken');
 const bcrpt=require('bcrypt')
 const jwt=require('jsonwebtoken')
 
@@ -31,17 +32,11 @@ const upload= multer({storage:storage})
 
 
 
-
-
-
-router.post('/create',upload.single('file'), (req,res)=>{   
+router.post('/create',upload.single('file'),verifyToken,async (req,res)=>{   
   try
   {
-   
-    jwt.verify(req.body.token,"myKey",(err,decoded)=>{
-      if(decoded && decoded.email){
-     
     
+    console.log("running");
             let data = new RequirementModel({ 
             name:req.body.name,
             area:req.body.area,
@@ -50,14 +45,10 @@ router.post('/create',upload.single('file'), (req,res)=>{
             hours:req.body.hours,
             file: req.body.file==''?'': req.file.filename,
             isClosed:req.body.isClosed } )
-            const postData=  data.save();
+            const postData= await data.save();
             res.status(200).send({success:true,msg:'postData',data:postData})
-    }
-      else{
-        res.json({"status":"Unauthorised user"});
+   
 
-    }
-  }) 
   }
   catch(err)
   {
@@ -65,7 +56,39 @@ router.post('/create',upload.single('file'), (req,res)=>{
   }
 })
 
-router.get('/read',async(req,res)=>{
+
+// router.post('/create',upload.single('file'), (req,res)=>{   
+//   try
+//   {
+   
+//     jwt.verify(req.body.token,"myKey",(err,decoded)=>{
+//       if(decoded && decoded.email){
+     
+    
+//             let data = new RequirementModel({ 
+//             name:req.body.name,
+//             area:req.body.area,
+//             institution:req.body.institution,  
+//             category:req.body.category,
+//             hours:req.body.hours,
+//             file: req.body.file==''?'': req.file.filename,
+//             isClosed:req.body.isClosed } )
+//             const postData=  data.save();
+//             res.status(200).send({success:true,msg:'postData',data:postData})
+//     }
+//       else{
+//         res.json({"status":"Unauthorised user"});
+
+//     }
+//   }) 
+//   }
+//   catch(err)
+//   {
+//     res.status(400).send({success:false,msg:err.message})
+//   }
+// })
+
+router.get('/read',verifyToken,async(req,res)=>{
   try
   {
     const data=await RequirementModel.find();
@@ -76,7 +99,7 @@ router.get('/read',async(req,res)=>{
       res.status(400).json({error:"No requirement find"+err.message});
   }
   })
-  router.get('/readone/:id',async(req,res)=>{
+  router.get('/readone/:id',verifyToken, async(req,res)=>{
     try
     {
         let id=req.params.id;
@@ -123,9 +146,9 @@ router.get('/read',async(req,res)=>{
     }       
     })
 
-    router.put('/update',upload.single('file'),async(req,res)=>{
+    router.put('/update',upload.single('file'),verifyToken,async(req,res)=>{
       try {     
-        console.log("ghf");
+     
         // jwt.verify(req.body.token,"myKey",(err,decoded)=>{
         //   if(decoded && decoded.email){
                 let data = new RequirementModel({ 
@@ -157,7 +180,7 @@ router.get('/read',async(req,res)=>{
     }       
     })
 
-    router.delete('/delete/:id',async(req,res)=>{           
+    router.delete('/delete/:id',verifyToken,async(req,res)=>{           
       try
       {
          let id=req.params.id;
