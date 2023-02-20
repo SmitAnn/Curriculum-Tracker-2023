@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import './Search.css';
-
+import {useNavigate,Link} from 'react-router-dom' 
 import TextField from "@mui/material/TextField";
 
 
@@ -22,10 +22,12 @@ const Search = () => {
             })
     }, [])
 
-    // const test = () => {
-
-    // }
-
+    const setId=(id)=>{
+    
+        localStorage.setItem("ID",id);
+    
+       }
+    
 
     return (
         <>
@@ -66,22 +68,25 @@ const Search = () => {
                         })
                         .map((val) => {
                             return (
-
-                                <div className="template" key={val.id}>
-                                    <div className="box1">
-                                        <h5>{val.name}</h5>
-                                        {/* </div>
-                                    <div className="box2"> */}
-                                        <h5>{val.area}</h5>
-                                        {/* </div>
-                                    <div className="box3"> */}
-                                        <h5>{val.category}</h5>
-                                        {/* </div>
-                                    <div className="box4"> */}
-                                        <h5>{val.institution}</h5>
+                                <div className="Updatesearch">
+                                <div className="update">
+                         
+                                
+                                <div className="noti">
+                                    <div style={{ marginBottom: '0.5rem' }}>
+                                        <span>{"Name : "+val.name}</span><br/>
+                                        <span> {val.area+" , "}{val.category}</span><br/> 
+                                        <span>{"Institute : "+val.institution}</span><br/>
+                                         
+                                        <Link to='/curriculums/ReadOne'>
+                                        <button  type="button" onClick={()=>setId(val._id)}>View Details</button>
+                                         </Link> 
                                     </div>
-                                    {/* <p className="price">{val.category}</p> */}
+                                   
+    
                                 </div>
+                            </div>
+                            </div>
 
                             )
                         })

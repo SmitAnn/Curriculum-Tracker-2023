@@ -139,7 +139,7 @@ setVisible(true);
                         </div>
                         <br />
                         <div>
-                        <button onClick={(e => download(e))}>{curriculum.file}</button>
+                        <button onClick={(e => download(e))}>Download curriculum</button>
                         </div>
                         <br/>
                         {visible &&

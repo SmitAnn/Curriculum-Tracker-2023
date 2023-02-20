@@ -16,7 +16,7 @@ const[linkValue,setLinkValue]=useState('');
                 setLinkValue("/requirements/ReadOne");
                 axios.get('http://localhost:5000/api/requirement/getnew')
                 .then((getData)=>{
-                     setRequirement(getData.data);   
+                     setRequirement(getData.data.data);   
                          
               })
              }
@@ -40,8 +40,10 @@ const[linkValue,setLinkValue]=useState('');
 
     return (
         <div className="Updates">
-            {
-                requirement.map((update) => {
+            
+                {Array.isArray(requirement)
+                    ? requirement.map(update=>{
+               
                     return (
                        
                         <div className="update">
@@ -64,8 +66,8 @@ const[linkValue,setLinkValue]=useState('');
                             </div>
                         </div>
                     )
-                })
-            }
+
+                }): null}
         </div>
     )
 }

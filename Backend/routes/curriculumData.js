@@ -166,6 +166,18 @@ router.post('/create', upload.single('file'), async (req, res) => {
           res.status(400).json({error:"No requirement find"});
       }
       })
+      router.get('/readsingle/:id',async(req,res)=>{
+        try
+        {
+            let id=req.params.id;
+            const data =await CurriculumModel.findOne({"_id": id});
+           res.send(data);  
+        }
+        catch(err)
+        {
+            res.status(400).json({error:"No requirement find"});
+        }
+        })
 
       router.get('/readbyuser/:user',async(req,res)=>{
         try

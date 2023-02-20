@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { Table, Button } from 'semantic-ui-react'
-import { Link } from 'react-router-dom';
+import { json, Link } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Sidebar from '../../Sidebar/Sidebar';
@@ -13,39 +13,12 @@ const Curriculum_Dash = () => {
   const [visible, setVisible] = useState(true);
   const [apiData, setApiData] = useState([]);
   const [editVisible, setEditVisible] = useState(true);
-  const ConfirmDelete = (id) => {
-
-    confirmAlert({
-      title: 'Confirm to delete',
-      message: 'Are you sure to delete this.',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => onDelete(id)
-        },
-        {
-          label: 'No',
-        }
-      ]
-    });
-  }
+  
 
 
 
 
-  const onDelete = (id) => {
-    axios.delete('http://localhost:5000/api/curriculum/delete/' + id)
-      .then((response) => {
-        if (response.data.status === "success") {
-          alert("Curriculum deleted successfully");
-          getData();
-        }
-        else {
-          alert("Something went wrong");
-        }
-      })
-  }
-
+  
 
 
   useEffect(() => {
@@ -59,6 +32,10 @@ const Curriculum_Dash = () => {
       axios.get('http://localhost:5000/api/curriculum/readbyuser/'+userId)
       .then((getData) => {
         setApiData(getData.data);
+        // console.log("getdata"+JSON.stringify(getData));
+        // console.log("data1"+JSON.stringify(getData.data));
+        // console.log("data2"+JSON.stringify(getData.data.data));
+        // console.log("hi");
       })
     }
     else {
@@ -145,10 +122,11 @@ const Curriculum_Dash = () => {
                         
                       </Table.Row>
                     </Table.Header>
-
+.
                     <Table.Body>
 
-                      {apiData.map(data => {
+                    {Array.isArray(apiData)
+        ? apiData.map(data=>{
                         return (
                           <Table.Row key={data._id}>
 
@@ -169,9 +147,9 @@ const Curriculum_Dash = () => {
                           
                               
                           </Table.Row>
-                        )
+                     )
 
-                      })}
+                    }): null}
 
                     </Table.Body>
 

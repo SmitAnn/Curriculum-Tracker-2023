@@ -27,6 +27,7 @@ import RightSide from '../RightSide/RightSide';
       });
 
 
+
   useEffect(() => {
     
     var userId=sessionStorage.getItem("userId");
@@ -53,8 +54,10 @@ const handleChange=e=>{
   const { currentPassword, password, reEnterPassword } = changePassword
         if (currentPassword && reEnterPassword && password  ) 
         {
+          const PasswordCheck={ "password": user.password,
+          "currentPassword": changePassword.currentPassword}
           axios.post(`http://localhost:5000/user/passwordCheck`,
-          changePassword
+          PasswordCheck
           ).then((getData)=>
           {
                 if(getData.data.status==="success")
